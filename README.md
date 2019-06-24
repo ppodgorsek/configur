@@ -6,6 +6,9 @@ Those sources can have many types:
 * Spring Data repositories,
 * others can be easily implemented.
 
+[![Codeship Status for ppodgorsek/configur](https://app.codeship.com/projects/0c73e7d0-77cb-0137-13fa-726db4a00d18/status?branch=master)](https://app.codeship.com/projects/350108)
+[![Coverage Status](https://coveralls.io/repos/github/ppodgorsek/configur/badge.svg?branch=master)](https://coveralls.io/github/ppodgorsek/configur?branch=master)
+
 ## How does it work?
 
 The following attributes were defined to represent configuration properties:
