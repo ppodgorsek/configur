@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+
+	<Appenders>
+		<Console name="WORK">
+			<PatternLayout pattern="%d %-5p %c.%M - %m%n" />
+		</Console>
+	</Appenders>
+
+	<Loggers>
+		<Logger name="com.github.ppodgorsek.configur.springdata.jpa" level="debug" additivity="false">
+			<AppenderRef ref="WORK" />
+		</Logger>
+
+		<Logger name="com.github.springtestdbunit" level="info" additivity="false">
+			<AppenderRef ref="WORK" />
+		</Logger>
+		<Logger name="com.zaxxer" level="info" additivity="false">
+			<AppenderRef ref="WORK" />
+		</Logger>
+		<Logger name="net.sf.ehcache" level="warn" additivity="false">
+			<AppenderRef ref="WORK" />
+		</Logger>
+		<Logger name="org.apache" level="warn" additivity="false">
+			<AppenderRef ref="WORK" />
+		</Logger>
+		<Logger name="org.dbunit" level="info" additivity="false">
+			<AppenderRef ref="WORK" />
+		</Logger>
+		<Logger name="org.hibernate" level="info" additivity="false">
+			<AppenderRef ref="WORK" />
+		</Logger>
+		<Logger name="org.hsqldb" level="info" additivity="false">
+			<AppenderRef ref="WORK" />
+		</Logger>
+		<Logger name="org.springframework" level="warn"
+			additivity="false">
+			<AppenderRef ref="WORK" />
+		</Logger>
+		<Logger name="org.springframework.aop" level="warn"
+			additivity="false">
+			<AppenderRef ref="WORK" />
+		</Logger>
+		<Logger name="org.springframework.data" level="warn"
+			additivity="false">
+			<AppenderRef ref="WORK" />
+		</Logger>
+
+		<Root level="warn">
+			<AppenderRef ref="WORK" />
+		</Root>
+	</Loggers>
+
+</Configuration>

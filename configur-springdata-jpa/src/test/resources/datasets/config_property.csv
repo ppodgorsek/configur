@@ -1,0 +1,16 @@
+c_id,c_key,c_value,c_name,c_description,c_parent
+property01,database.datasource.url,jdbc:hsqldb:mem:configurjpatest;hsqldb.write_delay=false;shutdown=true,URL,The data source URL,category3
+property02,database.datasource.driverClassName,org.hsqldb.jdbc.JDBCDriver,Driver class name,The data source driver,category3
+property03,database.datasource.user,sa,User,The data source username,category3
+property04,database.datasource.password,null,Password,The data source password,category3
+property05,database.dbunit.dataTypeFactory,org.dbunit.ext.hsqldb.HsqldbDataTypeFactory,Data type factory,The DbUnit data type factory,category5
+property06,database.hibernate.dialect,org.hibernate.dialect.HSQLDialect,Dialect,The Hibernate dialect,category2
+property07,database.hibernate.formatSql,false,Format SQL,Indicates whether or not the SQL statements must be formatted,category2
+property08,database.hibernate.showSql,false,Show SQL,Indicates whether or not the SQL statements must be shown in the logs,category2
+property09,database.hibernate.hbm2ddl.auto,create,Hbm2Ddl,Strategy for the creation of the DDL using the Hibernate configuration,category2
+property10,database.hibernate.hbm2ddl.import_files,null,Import files,List of files to import on Hibernate startup,category2
+property11,logging.level.com.github,DEBUG,com.github,Log level for the com.github package,category6
+property12,logging.level.org.springframework,WARN,org.springframework,Log level for the org.springframework package,category6
+property13,social.facebook.id,facebookId,Facebook ID,ID to connect to the Facebook API,category7
+property14,social.twitter.id,twitterId,Twitter ID,ID to connect to the Twitter API,category7
+property15,project.version,SNAPSHOT,Project version,null,null

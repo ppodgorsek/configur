@@ -1,0 +1,8 @@
+c_id,c_key,c_name,c_description,c_parent
+category1,database,Database,This category regroups database properties.,null
+category2,database.hibernate,Hibernate,This category regroups Hibernate properties.,category1
+category3,database.datasource,Data source,This category regroups data source properties.,category1
+category4,test,null,null,null
+category5,test.dbunit,DbUnit,DbUnit properties,category4
+category6,logging,null,null,null
+category7,social,Social Networks,Regroups properties related to social networks.,null

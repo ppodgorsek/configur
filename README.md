@@ -26,6 +26,12 @@ Configuration can be stored in a hierarchical manner in order to provide a bette
 
 All calls should be made to the configuration service to make sure mechanisms such as caching are not bypassed.
 
+### Spring Data JPA
+
+Remember to add the following package to the list scanned by Hibernate to find entity definitions: `com.github.ppodgorsek.configur.springdata.jpa.model`
+
+In case you would like to change the table and column names or the database constraints, simply override the default values by creating a new class in your classpath which will supersede `com.github.ppodgorsek.configur.springdata.jpa.JpaConfigurationMetadata`.
+
 ## How to use this project
 
 All artefacts of this project are available on Maven’s central repository, which makes it easy to use in your projects.
