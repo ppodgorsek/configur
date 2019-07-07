@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
@@ -46,7 +48,8 @@
 
 	<modules>
 		<module>configur-core</module>
-  </modules>
+		<module>configur-springdata-jpa</module>
+	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -57,10 +60,19 @@
 		<config.path.output>target</config.path.output>
 
 		<org.springframework.version>5.1.8.RELEASE</org.springframework.version>
+		<spring-data.version>Lovelace-SR8</spring-data.version>
 
+		<dbunit.version>2.6.0</dbunit.version>
 		<easymock.version>4.0.2</easymock.version>
+		<hibernate-core.version>5.4.2.Final</hibernate-core.version>
+		<hibernate-validator.version>6.0.16.Final</hibernate-validator.version>
+		<h2.version>1.4.199</h2.version>
+		<hikaricp.version>3.3.1</hikaricp.version>
+		<hsqldb.version>2.4.1</hsqldb.version>
 		<httpclient.version>4.5.9</httpclient.version>
+		<log4j.version>2.11.2</log4j.version>
 		<slf4j.version>1.7.26</slf4j.version>
+		<spring-test-dbunit.version>5.2.0</spring-test-dbunit.version>
 
 		<!-- PLUGINS -->
 		<ant-contrib.version>1.0b3</ant-contrib.version>
@@ -94,6 +106,18 @@
 				<artifactId>configur-core</artifactId>
 				<version>${project.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>com.github.ppodgorsek</groupId>
+				<artifactId>configur-springdata-jpa</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.zaxxer</groupId>
+				<artifactId>HikariCP</artifactId>
+				<version>${hikaricp.version}</version>
+				<scope>test</scope>
+			</dependency>
 
 			<dependency>
 				<groupId>org.apache.httpcomponents</groupId>
@@ -101,10 +125,63 @@
 				<version>${httpclient.version}</version>
 			</dependency>
 
+			<!-- DATABASE -->
+			<dependency>
+				<groupId>com.h2database</groupId>
+				<artifactId>h2</artifactId>
+				<version>${h2.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.hsqldb</groupId>
+				<artifactId>hsqldb</artifactId>
+				<version>${hsqldb.version}</version>
+				<scope>test</scope>
+			</dependency>
+
+			<!-- HIBERNATE -->
+			<!-- hibernate-annotations has been merged into hibernate-core since version 
+				3.6 -->
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+				<version>${hibernate-core.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.slf4j</groupId>
+						<artifactId>slf4j-api</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate.validator</groupId>
+				<artifactId>hibernate-validator</artifactId>
+				<version>${hibernate-validator.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.slf4j</groupId>
+						<artifactId>slf4j-api</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate.validator</groupId>
+				<artifactId>hibernate-validator-annotation-processor</artifactId>
+				<version>${hibernate-validator.version}</version>
+			</dependency>
+
+			<!-- SLF4J -->
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
 				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-bom</artifactId>
+				<version>${log4j.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
 			</dependency>
 
 			<dependency>
@@ -114,16 +191,48 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-releasetrain</artifactId>
+				<version>${spring-data.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 
+			<dependency>
+				<groupId>com.github.ppodgorsek</groupId>
+				<artifactId>spring-test-dbunit-core</artifactId>
+				<version>${spring-test-dbunit.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.dbunit</groupId>
+				<artifactId>dbunit</artifactId>
+				<version>${dbunit.version}</version>
+				<scope>test</scope>
+			</dependency>
 			<dependency>
 				<groupId>org.easymock</groupId>
 				<artifactId>easymock</artifactId>
 				<version>${easymock.version}</version>
+				<scope>test</scope>
 			</dependency>
 			<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
 			<dependency>
 				<groupId>org.junit.jupiter</groupId>
 				<artifactId>junit-jupiter-api</artifactId>
+				<version>${junit.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.junit.jupiter</groupId>
+				<artifactId>junit-jupiter-engine</artifactId>
+				<version>${junit.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.junit.jupiter</groupId>
+				<artifactId>junit-jupiter-params</artifactId>
 				<version>${junit.version}</version>
 				<scope>test</scope>
 			</dependency>
@@ -272,12 +381,22 @@
 							<!-- Place any Ant tasks here. You can add anything you can add between 
 								<target> and </target> in a build.xml. -->
 							<tasks>
-								<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="maven.plugin.classpath"/>
+								<taskdef
+									resource="net/sf/antcontrib/antcontrib.properties"
+									classpathref="maven.plugin.classpath" />
 
-								<copy file="${config.path.prefix}/LICENSE" tofile="${config.path.output}/META-INF/LICENSE" failonerror="true"/>
-								<copy file="${config.path.prefix}/LICENSE" tofile="${config.path.output}/classes/META-INF/LICENSE" failonerror="true"/>
-								<copy file="${config.path.prefix}/LICENSE" tofile="${config.path.output}/test-classes/META-INF/LICENSE" failonerror="true"/>
-								<copy file="${config.path.prefix}/LICENSE" tofile="${config.path.output}/apidocs/META-INF/LICENSE" failonerror="true"/>
+								<copy file="${config.path.prefix}/LICENSE"
+									tofile="${config.path.output}/META-INF/LICENSE"
+									failonerror="true" />
+								<copy file="${config.path.prefix}/LICENSE"
+									tofile="${config.path.output}/classes/META-INF/LICENSE"
+									failonerror="true" />
+								<copy file="${config.path.prefix}/LICENSE"
+									tofile="${config.path.output}/test-classes/META-INF/LICENSE"
+									failonerror="true" />
+								<copy file="${config.path.prefix}/LICENSE"
+									tofile="${config.path.output}/apidocs/META-INF/LICENSE"
+									failonerror="true" />
 							</tasks>
 						</configuration>
 					</execution>

@@ -1,9 +1,11 @@
 package com.github.ppodgorsek.configur.core.model;
 
+import java.io.Serializable;
+
 /**
  * @author Paul Podgorsek
  */
-public interface ConfigurationProperty {
+public interface ConfigurationProperty extends Serializable {
 
 	String getKey();
 
