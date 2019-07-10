@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import org.easymock.EasyMock;
 import org.easymock.EasyMockSupport;
@@ -16,6 +17,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.github.ppodgorsek.configur.core.model.ClusterNodeVariation;
 import com.github.ppodgorsek.configur.core.model.ConfigurationCategory;
 import com.github.ppodgorsek.configur.core.model.ConfigurationProperty;
 import com.github.ppodgorsek.configur.core.service.ConfigurationService;
@@ -107,6 +109,17 @@ public class ConfigurationServiceDelegatorTest {
 			public ConfigurationCategory getCategory() {
 				return null;
 			}
+
+			@Override
+			public Set<ClusterNodeVariation> getClusterNodeVariations() {
+				return null;
+			}
+
+			@Override
+			public void setClusterNodeVariations(
+					final Set<ClusterNodeVariation> clusterNodeVariations) {
+				// Nothing specific here.
+			}
 		};
 
 		property2 = new ConfigurationProperty() {
@@ -161,6 +174,17 @@ public class ConfigurationServiceDelegatorTest {
 			@Override
 			public ConfigurationCategory getCategory() {
 				return null;
+			}
+
+			@Override
+			public Set<ClusterNodeVariation> getClusterNodeVariations() {
+				return null;
+			}
+
+			@Override
+			public void setClusterNodeVariations(
+					final Set<ClusterNodeVariation> clusterNodeVariations) {
+				// Nothing specific here.
 			}
 		};
 
@@ -217,6 +241,17 @@ public class ConfigurationServiceDelegatorTest {
 			public ConfigurationCategory getCategory() {
 				return null;
 			}
+
+			@Override
+			public Set<ClusterNodeVariation> getClusterNodeVariations() {
+				return null;
+			}
+
+			@Override
+			public void setClusterNodeVariations(
+					final Set<ClusterNodeVariation> clusterNodeVariations) {
+				// Nothing specific here.
+			}
 		};
 
 		property4 = new ConfigurationProperty() {
@@ -272,6 +307,17 @@ public class ConfigurationServiceDelegatorTest {
 			public ConfigurationCategory getCategory() {
 				return null;
 			}
+
+			@Override
+			public Set<ClusterNodeVariation> getClusterNodeVariations() {
+				return null;
+			}
+
+			@Override
+			public void setClusterNodeVariations(
+					final Set<ClusterNodeVariation> clusterNodeVariations) {
+				// Nothing specific here.
+			}
 		};
 
 		property5 = new ConfigurationProperty() {
@@ -326,6 +372,17 @@ public class ConfigurationServiceDelegatorTest {
 			@Override
 			public ConfigurationCategory getCategory() {
 				return null;
+			}
+
+			@Override
+			public Set<ClusterNodeVariation> getClusterNodeVariations() {
+				return null;
+			}
+
+			@Override
+			public void setClusterNodeVariations(
+					final Set<ClusterNodeVariation> clusterNodeVariations) {
+				// Nothing specific here.
 			}
 		};
 	}

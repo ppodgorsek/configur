@@ -1,5 +1,8 @@
 package com.github.ppodgorsek.configur.springdata.jpa.dao;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.TestExecutionListeners;
@@ -8,7 +11,9 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.github.ppodgorsek.configur.core.model.ClusterNodeVariation;
 import com.github.ppodgorsek.configur.springdata.jpa.config.JpaTestConfiguration;
+import com.github.ppodgorsek.configur.springdata.jpa.model.JpaClusterNodeVariation;
 import com.github.ppodgorsek.configur.springdata.jpa.model.JpaConfigurationCategory;
 import com.github.ppodgorsek.configur.springdata.jpa.model.JpaConfigurationProperty;
 import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
@@ -54,7 +59,16 @@ public abstract class AbstractDbUnitTest {
 	protected JpaConfigurationProperty property13;
 	protected JpaConfigurationProperty property14;
 	protected JpaConfigurationProperty property15;
+	protected JpaConfigurationProperty property16;
+	protected JpaConfigurationProperty property17;
 	protected JpaConfigurationProperty nonPersistedProperty;
+
+	protected JpaClusterNodeVariation clusterNodeVariation01;
+	protected JpaClusterNodeVariation clusterNodeVariation02;
+	protected JpaClusterNodeVariation clusterNodeVariation03;
+	protected JpaClusterNodeVariation clusterNodeVariation04;
+	protected JpaClusterNodeVariation clusterNodeVariation05;
+	protected JpaClusterNodeVariation clusterNodeVariation06;
 
 	@BeforeEach
 	public void commonSetUp() {
@@ -237,6 +251,22 @@ public abstract class AbstractDbUnitTest {
 		property15.setName("Project version");
 		property15.setValue("SNAPSHOT");
 
+		property16 = new JpaConfigurationProperty();
+		property16.setCategory(null);
+		property16.setDescription("Indicates whether the processing of cron job is enabled or not");
+		property16.setId("property16");
+		property16.setKey("cronjobs.enabled");
+		property16.setName("Cron jobs enabled");
+		property16.setValue("true");
+
+		property17 = new JpaConfigurationProperty();
+		property17.setCategory(null);
+		property17.setDescription("A prefix which is added to all email subjects");
+		property17.setId("property17");
+		property17.setKey("mail.subject.prefix");
+		property17.setName("Email subject prefix");
+		property17.setValue(null);
+
 		nonPersistedProperty = new JpaConfigurationProperty();
 		nonPersistedProperty.setCategory(null);
 		nonPersistedProperty.setDescription(null);
@@ -244,6 +274,55 @@ public abstract class AbstractDbUnitTest {
 		nonPersistedProperty.setKey("unknownKey");
 		nonPersistedProperty.setName(null);
 		nonPersistedProperty.setValue("unknownValue");
+
+		clusterNodeVariation01 = new JpaClusterNodeVariation();
+		clusterNodeVariation01.setId("variation01");
+		clusterNodeVariation01.setNodeId("0");
+		clusterNodeVariation01.setProperty(property16);
+		clusterNodeVariation01.setValue("true");
+
+		clusterNodeVariation02 = new JpaClusterNodeVariation();
+		clusterNodeVariation02.setId("variation02");
+		clusterNodeVariation02.setNodeId("1");
+		clusterNodeVariation02.setProperty(property16);
+		clusterNodeVariation02.setValue("false");
+
+		clusterNodeVariation03 = new JpaClusterNodeVariation();
+		clusterNodeVariation03.setId("variation03");
+		clusterNodeVariation03.setNodeId("2");
+		clusterNodeVariation03.setProperty(property16);
+		clusterNodeVariation03.setValue("false");
+
+		clusterNodeVariation04 = new JpaClusterNodeVariation();
+		clusterNodeVariation04.setId("variation04");
+		clusterNodeVariation04.setNodeId("3");
+		clusterNodeVariation04.setProperty(property16);
+		clusterNodeVariation04.setValue("false");
+
+		clusterNodeVariation05 = new JpaClusterNodeVariation();
+		clusterNodeVariation05.setId("variation05");
+		clusterNodeVariation05.setNodeId("4");
+		clusterNodeVariation05.setProperty(property16);
+		clusterNodeVariation05.setValue("false");
+
+		clusterNodeVariation06 = new JpaClusterNodeVariation();
+		clusterNodeVariation06.setId("variation06");
+		clusterNodeVariation06.setNodeId("0");
+		clusterNodeVariation06.setProperty(property17);
+		clusterNodeVariation06.setValue("[CRON] ");
+
+		final Set<ClusterNodeVariation> property16Variations = new HashSet<>();
+		property16Variations.add(clusterNodeVariation01);
+		property16Variations.add(clusterNodeVariation02);
+		property16Variations.add(clusterNodeVariation03);
+		property16Variations.add(clusterNodeVariation04);
+		property16Variations.add(clusterNodeVariation05);
+
+		final Set<ClusterNodeVariation> property17Variations = new HashSet<>();
+		property17Variations.add(clusterNodeVariation06);
+
+		property16.setClusterNodeVariations(property16Variations);
+		property17.setClusterNodeVariations(property17Variations);
 	}
 
 }

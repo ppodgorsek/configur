@@ -1,18 +1,23 @@
 package com.github.ppodgorsek.configur.springdata.jpa.model;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
+import com.github.ppodgorsek.configur.core.model.ClusterNodeVariation;
 import com.github.ppodgorsek.configur.core.model.ConfigurationCategory;
 import com.github.ppodgorsek.configur.core.model.ConfigurationProperty;
 import com.github.ppodgorsek.configur.springdata.jpa.JpaConfigurationMetadata;
@@ -26,7 +31,7 @@ import com.github.ppodgorsek.configur.springdata.jpa.JpaConfigurationMetadata;
 @Table(name = JpaConfigurationMetadata.Table.CONFIGURATION_PROPERTY)
 public class JpaConfigurationProperty implements ConfigurationProperty {
 
-	private static final long serialVersionUID = 1560438187841290956L;
+	private static final long serialVersionUID = -1729611058343865242L;
 
 	@Id
 	@GeneratedValue(generator = "hibernate-uuid")
@@ -50,6 +55,9 @@ public class JpaConfigurationProperty implements ConfigurationProperty {
 	@ManyToOne(optional = true)
 	@JoinColumn(name = JpaConfigurationMetadata.Column.PARENT, nullable = true)
 	private JpaConfigurationCategory category;
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "property")
+	private Set<JpaClusterNodeVariation> clusterNodeVariations;
 
 	/**
 	 * Default constructor.
@@ -177,6 +185,56 @@ public class JpaConfigurationProperty implements ConfigurationProperty {
 		}
 		else {
 			category = new JpaConfigurationCategory(configurationCategory);
+		}
+	}
+
+	@Override
+	public Set<ClusterNodeVariation> getClusterNodeVariations() {
+
+		if (clusterNodeVariations == null) {
+			return new HashSet<>();
+		}
+		else {
+			return new HashSet<>(clusterNodeVariations);
+		}
+	}
+
+	@Override
+	public void setClusterNodeVariations(final Set<ClusterNodeVariation> clusterNodeVariations) {
+
+		if (clusterNodeVariations == null) {
+			this.clusterNodeVariations = null;
+		}
+		else {
+			this.clusterNodeVariations = new HashSet<>();
+
+			for (final ClusterNodeVariation clusterNodeVariation : clusterNodeVariations) {
+				addClusterNodeVariation(clusterNodeVariation);
+			}
+		}
+	}
+
+	/**
+	 * Adds a cluster node variation to the set.
+	 *
+	 * @param clusterNodeVariation
+	 *            The variation to add.
+	 */
+	private void addClusterNodeVariation(final ClusterNodeVariation clusterNodeVariation) {
+
+		if (clusterNodeVariations == null) {
+			synchronized (clusterNodeVariations) {
+				if (clusterNodeVariations == null) {
+					clusterNodeVariations = new HashSet<>();
+				}
+			}
+		}
+
+		if (clusterNodeVariation instanceof JpaClusterNodeVariation) {
+			clusterNodeVariations.add((JpaClusterNodeVariation) clusterNodeVariation);
+		}
+		else {
+			clusterNodeVariations.add(new JpaClusterNodeVariation(clusterNodeVariation));
 		}
 	}
 

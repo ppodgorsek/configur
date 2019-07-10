@@ -23,7 +23,9 @@ public final class JpaConfigurationMetadata {
 		public static final String ID = COLUMN_PREFIX + "id";
 		public static final String KEY = COLUMN_PREFIX + "key";
 		public static final String NAME = COLUMN_PREFIX + "name";
+		public static final String NODE_ID = COLUMN_PREFIX + "node_id";
 		public static final String PARENT = COLUMN_PREFIX + "parent";
+		public static final String PROPERTY_ID = COLUMN_PREFIX + "property_id";
 		public static final String VALUE = COLUMN_PREFIX + "value";
 
 		/**
@@ -43,6 +45,7 @@ public final class JpaConfigurationMetadata {
 		public static final int ID_LENGTH = 36;
 		public static final int KEY_LENGTH = 128;
 		public static final int NAME_LENGTH = 256;
+		public static final int NODE_ID_LENGTH = 10;
 		public static final int VALUE_LENGTH = 128;
 
 		/**
@@ -63,6 +66,7 @@ public final class JpaConfigurationMetadata {
 		 */
 		public static final String TABLE_PREFIX = "config_";
 
+		public static final String CLUSTER_NODE_VARIATION = TABLE_PREFIX + "cluster_node_variation";
 		public static final String CONFIGURATION_CATEGORY = TABLE_PREFIX + "category";
 		public static final String CONFIGURATION_PROPERTY = TABLE_PREFIX + "property";
 

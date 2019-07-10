@@ -14,3 +14,5 @@ property12,logging.level.org.springframework,WARN,org.springframework,Log level 
 property13,social.facebook.id,facebookId,Facebook ID,ID to connect to the Facebook API,category7
 property14,social.twitter.id,twitterId,Twitter ID,ID to connect to the Twitter API,category7
 property15,project.version,SNAPSHOT,Project version,null,null
+property16,cronjobs.enabled,true,Cron jobs enabled,Indicates whether the processing of cron job is enabled or not,null
+property17,mail.subject.prefix,null,Email subject prefix,A prefix which is added to all email subjects,null

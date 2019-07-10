@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.easymock.EasyMock;
 import org.easymock.EasyMockSupport;
@@ -21,6 +22,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import com.github.ppodgorsek.configur.core.model.ClusterNodeVariation;
 import com.github.ppodgorsek.configur.core.model.ConfigurationCategory;
 import com.github.ppodgorsek.configur.core.model.ConfigurationProperty;
 import com.github.ppodgorsek.configur.springdata.jpa.JpaConfigurationMetadata;
@@ -550,6 +552,17 @@ public class JpaConfigurationServiceTest extends AbstractDbUnitTest {
 			@Override
 			public ConfigurationCategory getCategory() {
 				return null;
+			}
+
+			@Override
+			public Set<ClusterNodeVariation> getClusterNodeVariations() {
+				return null;
+			}
+
+			@Override
+			public void setClusterNodeVariations(
+					final Set<ClusterNodeVariation> clusterNodeVariations) {
+				// Nothing specific here.
 			}
 		};
 

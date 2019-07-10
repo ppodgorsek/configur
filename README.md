@@ -16,7 +16,8 @@ The following attributes were defined to represent configuration properties:
 * a value,
 * an optional category,
 * a name to easily identify properties,
-* a description to provide additional information.
+* a description to provide additional information,
+* variations for clustered environments according to which node the property is fetched from.
 
 All values are stored as strings in the database but methods have been provided to convert them to various other types after being fetched.
 
@@ -24,7 +25,7 @@ Configuration can be stored in a hierarchical manner in order to provide a bette
 * categories can be nested,
 * properties can simply be defined with no category.
 
-All calls should be made to the configuration service to make sure mechanisms such as caching are not bypassed.
+All calls should be made to the `ConfigurationFacade` and `ConfigurationService` to make sure mechanisms such as caching are not bypassed.
 
 ### Spring Data JPA
 

@@ -1,2 +1,3 @@
 config_category
 config_property
+config_cluster_node_variation
