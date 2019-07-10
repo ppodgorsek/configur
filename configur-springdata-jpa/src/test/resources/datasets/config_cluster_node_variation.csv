@@ -1,0 +1,7 @@
+c_id,c_node_id,c_value,c_property_id
+variation01,0,true,property16
+variation02,1,false,property16
+variation03,2,false,property16
+variation04,3,false,property16
+variation05,4,false,property16
+variation06,0,[CRON] ,property17

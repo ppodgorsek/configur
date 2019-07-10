@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Set;
+
 import javax.annotation.Resource;
 
 import org.junit.jupiter.api.Assertions;
@@ -14,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import com.github.ppodgorsek.configur.core.model.ClusterNodeVariation;
 import com.github.ppodgorsek.configur.springdata.jpa.model.JpaConfigurationProperty;
 
 /**
@@ -110,6 +113,21 @@ public class JpaConfigurationPropertyDaoTest extends AbstractDbUnitTest {
 
 		assertNotNull(property, "The property should not be null");
 		assertEquals(property01, property, "Wrong property");
+	}
+
+	@Test
+	public void findByKeyWithCorrectKeyHavingClusterVariations() {
+
+		final JpaConfigurationProperty property = dao.findByKey(property16.getKey());
+
+		assertNotNull(property, "The property should not be null");
+		assertEquals(property16, property, "Wrong property");
+
+		final Set<ClusterNodeVariation> correctVariations = property16.getClusterNodeVariations();
+		final Set<ClusterNodeVariation> variations = property.getClusterNodeVariations();
+
+		assertEquals(correctVariations.size(), variations.size(), "Wrong number of variations");
+		assertTrue(correctVariations.containsAll(variations), "Wrong variations");
 	}
 
 	@Test

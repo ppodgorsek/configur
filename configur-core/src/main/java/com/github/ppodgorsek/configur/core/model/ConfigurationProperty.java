@@ -1,6 +1,7 @@
 package com.github.ppodgorsek.configur.core.model;
 
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * @author Paul Podgorsek
@@ -26,5 +27,9 @@ public interface ConfigurationProperty extends Serializable {
 	ConfigurationCategory getCategory();
 
 	void setCategory(ConfigurationCategory category);
+
+	Set<ClusterNodeVariation> getClusterNodeVariations();
+
+	void setClusterNodeVariations(Set<ClusterNodeVariation> clusterNodeVariations);
 
 }
