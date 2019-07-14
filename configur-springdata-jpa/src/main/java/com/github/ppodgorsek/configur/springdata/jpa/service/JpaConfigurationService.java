@@ -14,6 +14,9 @@ import org.springframework.util.Assert;
 import com.github.ppodgorsek.configur.core.model.ConfigurationCategory;
 import com.github.ppodgorsek.configur.core.model.ConfigurationProperty;
 import com.github.ppodgorsek.configur.core.service.ConfigurationService;
+import com.github.ppodgorsek.configur.core.service.impl.AbstractConfigurationService;
+import com.github.ppodgorsek.configur.core.strategy.ClusterNodeDeterminationStrategy;
+import com.github.ppodgorsek.configur.core.strategy.impl.FixedClusterNodeDeterminationStrategy;
 import com.github.ppodgorsek.configur.springdata.jpa.JpaConfigurationMetadata;
 import com.github.ppodgorsek.configur.springdata.jpa.dao.JpaConfigurationCategoryDao;
 import com.github.ppodgorsek.configur.springdata.jpa.dao.JpaConfigurationPropertyDao;
@@ -25,7 +28,8 @@ import com.github.ppodgorsek.configur.springdata.jpa.model.JpaConfigurationPrope
  *
  * @author Paul Podgorsek
  */
-public class JpaConfigurationService implements ConfigurationService {
+public class JpaConfigurationService extends AbstractConfigurationService
+		implements ConfigurationService {
 
 	private final JpaConfigurationCategoryDao jpaConfigurationCategoryDao;
 	private final JpaConfigurationPropertyDao jpaConfigurationPropertyDao;
@@ -40,8 +44,26 @@ public class JpaConfigurationService implements ConfigurationService {
 	 */
 	public JpaConfigurationService(final JpaConfigurationCategoryDao jpaConfigurationCategoryDao,
 			final JpaConfigurationPropertyDao jpaConfigurationPropertyDao) {
+		this(new FixedClusterNodeDeterminationStrategy(), jpaConfigurationCategoryDao,
+				jpaConfigurationPropertyDao);
+	}
 
-		super();
+	/**
+	 * Constructor allowing to define the cluster node determination strategy, along with the DAOs.
+	 *
+	 * @param clusterNodeDeterminationStrategy
+	 *            The cluster node determination strategy.
+	 * @param jpaConfigurationCategoryDao
+	 *            The configuration category DAO.
+	 * @param jpaConfigurationPropertyDao
+	 *            The configuration property DAO.
+	 */
+	public JpaConfigurationService(
+			final ClusterNodeDeterminationStrategy clusterNodeDeterminationStrategy,
+			final JpaConfigurationCategoryDao jpaConfigurationCategoryDao,
+			final JpaConfigurationPropertyDao jpaConfigurationPropertyDao) {
+
+		super(clusterNodeDeterminationStrategy);
 
 		Assert.notNull(jpaConfigurationCategoryDao, "The configuration category DAO is required");
 		Assert.notNull(jpaConfigurationPropertyDao, "The configuration property DAO is required");
@@ -67,7 +89,7 @@ public class JpaConfigurationService implements ConfigurationService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public ConfigurationProperty getByProperty(final String key) {
+	public ConfigurationProperty getProperty(final String key) {
 		return jpaConfigurationPropertyDao.findByKey(key);
 	}
 

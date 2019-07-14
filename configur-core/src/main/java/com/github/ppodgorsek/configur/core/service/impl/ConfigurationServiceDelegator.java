@@ -12,6 +12,8 @@ import org.springframework.util.Assert;
 import com.github.ppodgorsek.configur.core.model.ConfigurationCategory;
 import com.github.ppodgorsek.configur.core.model.ConfigurationProperty;
 import com.github.ppodgorsek.configur.core.service.ConfigurationService;
+import com.github.ppodgorsek.configur.core.strategy.ClusterNodeDeterminationStrategy;
+import com.github.ppodgorsek.configur.core.strategy.impl.FixedClusterNodeDeterminationStrategy;
 
 /**
  * Delegator which uses a list of {@link ConfigurationService}s to fetch properties. It fetches
@@ -21,7 +23,8 @@ import com.github.ppodgorsek.configur.core.service.ConfigurationService;
  *
  * @author Paul Podgorsek
  */
-public class ConfigurationServiceDelegator implements ConfigurationService {
+public class ConfigurationServiceDelegator extends AbstractConfigurationService
+		implements ConfigurationService {
 
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(ConfigurationServiceDelegator.class);
@@ -35,8 +38,23 @@ public class ConfigurationServiceDelegator implements ConfigurationService {
 	 *            The list of delegate configuration services.
 	 */
 	public ConfigurationServiceDelegator(final Collection<ConfigurationService> delegates) {
+		this(new FixedClusterNodeDeterminationStrategy(), delegates);
+	}
 
-		super();
+	/**
+	 * Constructor allowing to define the cluster node determination strategy, along with the
+	 * delegates.
+	 *
+	 * @param clusterNodeDeterminationStrategy
+	 *            The cluster node determination strategy.
+	 * @param delegates
+	 *            The list of delegate configuration services.
+	 */
+	public ConfigurationServiceDelegator(
+			final ClusterNodeDeterminationStrategy clusterNodeDeterminationStrategy,
+			final Collection<ConfigurationService> delegates) {
+
+		super(clusterNodeDeterminationStrategy);
 
 		Assert.notNull(delegates, "The list of delegates is required");
 		Assert.isTrue(!delegates.isEmpty(), "The list of delegates should not be empty");
@@ -77,12 +95,12 @@ public class ConfigurationServiceDelegator implements ConfigurationService {
 	}
 
 	@Override
-	public ConfigurationProperty getByProperty(final String key) {
+	public ConfigurationProperty getProperty(final String key) {
 
 		ConfigurationProperty configurationProperty = null;
 
 		for (final ConfigurationService delegate : delegates) {
-			configurationProperty = delegate.getByProperty(key);
+			configurationProperty = delegate.getProperty(key);
 
 			if (configurationProperty != null) {
 				break;
@@ -102,7 +120,7 @@ public class ConfigurationServiceDelegator implements ConfigurationService {
 		return delegates.get(0).save(property);
 	}
 
-	protected List<ConfigurationService> getDelegates() {
+	public List<ConfigurationService> getDelegates() {
 		return delegates;
 	}
 

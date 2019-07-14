@@ -25,7 +25,8 @@ import com.zaxxer.hikari.HikariDataSource;
  * @author Paul Podgorsek
  */
 @Configuration
-@Import({ JpaConfiguration.class, TestDbUnitConfiguration.class })
+@Import({ JpaConfiguration.class, JpaDbUnitTestConfiguration.class,
+		JpaListenerTestConfiguration.class })
 @PropertySource("classpath:properties/database.properties")
 public class JpaTestConfiguration {
 

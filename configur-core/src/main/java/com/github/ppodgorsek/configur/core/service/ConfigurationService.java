@@ -39,13 +39,23 @@ public interface ConfigurationService {
 	List<ConfigurationProperty> getByCategory(String category);
 
 	/**
-	 * Fetches a configuration by its key, in the default category.
+	 * Fetches a configuration by its key.
 	 *
-	 * @param property
+	 * @param key
 	 *            The configuration's key.
 	 * @return The configuration having the provided key, or {@code null} if there isn't one.
 	 */
-	ConfigurationProperty getByProperty(String property);
+	ConfigurationProperty getProperty(String key);
+
+	/**
+	 * Fetches a configuration's value by its key.
+	 *
+	 * @param key
+	 *            The configuration's key.
+	 * @return The value for the configuration having the provided key, or {@code null} if there
+	 *         isn't one.
+	 */
+	String getPropertyValue(String key);
 
 	/**
 	 * Saves a category. If the category has parents, they will be persisted too.

@@ -290,7 +290,7 @@ public class JpaConfigurationServiceTest extends AbstractDbUnitTest {
 		EasyMock.replay(jpaConfigurationCategoryDao);
 		EasyMock.replay(jpaConfigurationPropertyDao);
 
-		final ConfigurationProperty result = service.getByProperty(property01.getKey());
+		final ConfigurationProperty result = service.getProperty(property01.getKey());
 
 		assertNotNull(result, "The result must not be null");
 		assertEquals(property01, result, "Wrong result");

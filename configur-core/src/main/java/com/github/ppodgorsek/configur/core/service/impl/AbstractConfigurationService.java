@@ -1,11 +1,10 @@
-package com.github.ppodgorsek.configur.core.facade.impl;
+package com.github.ppodgorsek.configur.core.service.impl;
 
 import java.util.Objects;
 import java.util.Set;
 
 import org.springframework.util.Assert;
 
-import com.github.ppodgorsek.configur.core.facade.ConfigurationFacade;
 import com.github.ppodgorsek.configur.core.model.ClusterNodeVariation;
 import com.github.ppodgorsek.configur.core.model.ConfigurationProperty;
 import com.github.ppodgorsek.configur.core.service.ConfigurationService;
@@ -13,93 +12,37 @@ import com.github.ppodgorsek.configur.core.strategy.ClusterNodeDeterminationStra
 import com.github.ppodgorsek.configur.core.strategy.impl.FixedClusterNodeDeterminationStrategy;
 
 /**
- * Default implementation of the {@link ConfigurationFacade}.
+ * Abstract parent configuration service allowing to fetch property values according to keys. For
+ * clustered environments, those values will be node-specific, if it applies.
  *
  * @author Paul Podgorsek
  */
-public class ConfigurationFacadeImpl implements ConfigurationFacade {
+public abstract class AbstractConfigurationService implements ConfigurationService {
 
 	private final ClusterNodeDeterminationStrategy clusterNodeDeterminationStrategy;
 
-	private final ConfigurationService configurationService;
-
 	/**
-	 * Default constructor.
-	 *
-	 * @param configurationService
-	 *            The configuration service, to fetch properties.
+	 * Constructor which uses a {@link FixedClusterNodeDeterminationStrategy} by default.
 	 */
-	public ConfigurationFacadeImpl(final ConfigurationService configurationService) {
-		this(configurationService, new FixedClusterNodeDeterminationStrategy());
+	public AbstractConfigurationService() {
+		this(new FixedClusterNodeDeterminationStrategy());
 	}
 
 	/**
 	 * Constructor allowing to define the cluster node determination strategy.
 	 *
-	 * @param configurationService
-	 *            The configuration service, to fetch properties.
 	 * @param clusterNodeDeterminationStrategy
 	 *            The cluster node determination strategy.
 	 */
-	public ConfigurationFacadeImpl(final ConfigurationService configurationService,
+	public AbstractConfigurationService(
 			final ClusterNodeDeterminationStrategy clusterNodeDeterminationStrategy) {
 
 		super();
 
-		Assert.notNull(configurationService, "The configuration service is required");
 		Assert.notNull(clusterNodeDeterminationStrategy,
 				"The cluster node determination strategy is required");
 
-		this.configurationService = configurationService;
 		this.clusterNodeDeterminationStrategy = clusterNodeDeterminationStrategy;
-	}
-
-	@Override
-	public Double getValueAsDouble(final String key) {
-
-		final String value = getValueAsString(key);
-
-		if (value == null) {
-			return null;
-		}
-		else {
-			return Double.valueOf(value);
-		}
-	}
-
-	@Override
-	public Integer getValueAsInteger(final String key) {
-
-		final String value = getValueAsString(key);
-
-		if (value == null) {
-			return null;
-		}
-		else {
-			return Integer.valueOf(value);
-		}
-	}
-
-	@Override
-	public Long getValueAsLong(final String key) {
-
-		final String value = getValueAsString(key);
-
-		if (value == null) {
-			return null;
-		}
-		else {
-			return Long.valueOf(value);
-		}
-	}
-
-	@Override
-	public String getValueAsString(final String key) {
-
-		final ConfigurationProperty property = configurationService.getByProperty(key);
-		final String clusterNodeProperty = getClusterNodeProperty(property);
-
-		return clusterNodeProperty;
 	}
 
 	/**
@@ -110,7 +53,7 @@ public class ConfigurationFacadeImpl implements ConfigurationFacade {
 	 * @return The property value corresponding to the current cluster node, or the global value if
 	 *         there is no cluster-specific value. Can be {@code null}.
 	 */
-	private String getClusterNodeProperty(final ConfigurationProperty property) {
+	protected String getClusterNodeProperty(final ConfigurationProperty property) {
 
 		if (property == null) {
 			return null;
@@ -128,6 +71,15 @@ public class ConfigurationFacadeImpl implements ConfigurationFacade {
 		}
 
 		return property.getValue();
+	}
+
+	@Override
+	public String getPropertyValue(final String key) {
+
+		final ConfigurationProperty property = getProperty(key);
+		final String clusterNodeProperty = getClusterNodeProperty(property);
+
+		return clusterNodeProperty;
 	}
 
 }

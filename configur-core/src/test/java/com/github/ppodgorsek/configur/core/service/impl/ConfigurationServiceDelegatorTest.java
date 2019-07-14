@@ -511,12 +511,12 @@ public class ConfigurationServiceDelegatorTest {
 	@Test
 	public void getByPropertyFoundInDelegate1() {
 
-		EasyMock.expect(delegate1.getByProperty(KEY)).andReturn(property1);
+		EasyMock.expect(delegate1.getProperty(KEY)).andReturn(property1);
 
 		EasyMock.replay(delegate1);
 		EasyMock.replay(delegate2);
 
-		final ConfigurationProperty result = configurationServiceDelegator.getByProperty(KEY);
+		final ConfigurationProperty result = configurationServiceDelegator.getProperty(KEY);
 
 		assertNotNull(result, "The result should not be null");
 		assertEquals(property1, result, "Wrong result");
@@ -525,13 +525,13 @@ public class ConfigurationServiceDelegatorTest {
 	@Test
 	public void getByPropertyFoundInDelegate2() {
 
-		EasyMock.expect(delegate1.getByProperty(KEY)).andReturn(null);
-		EasyMock.expect(delegate2.getByProperty(KEY)).andReturn(property1);
+		EasyMock.expect(delegate1.getProperty(KEY)).andReturn(null);
+		EasyMock.expect(delegate2.getProperty(KEY)).andReturn(property1);
 
 		EasyMock.replay(delegate1);
 		EasyMock.replay(delegate2);
 
-		final ConfigurationProperty result = configurationServiceDelegator.getByProperty(KEY);
+		final ConfigurationProperty result = configurationServiceDelegator.getProperty(KEY);
 
 		assertNotNull(result, "The result should not be null");
 		assertEquals(property1, result, "Wrong result");
@@ -540,13 +540,13 @@ public class ConfigurationServiceDelegatorTest {
 	@Test
 	public void getByPropertyNotFound() {
 
-		EasyMock.expect(delegate1.getByProperty(KEY)).andReturn(null);
-		EasyMock.expect(delegate2.getByProperty(KEY)).andReturn(null);
+		EasyMock.expect(delegate1.getProperty(KEY)).andReturn(null);
+		EasyMock.expect(delegate2.getProperty(KEY)).andReturn(null);
 
 		EasyMock.replay(delegate1);
 		EasyMock.replay(delegate2);
 
-		final ConfigurationProperty result = configurationServiceDelegator.getByProperty(KEY);
+		final ConfigurationProperty result = configurationServiceDelegator.getProperty(KEY);
 
 		assertNull(result, "The result should be null");
 	}

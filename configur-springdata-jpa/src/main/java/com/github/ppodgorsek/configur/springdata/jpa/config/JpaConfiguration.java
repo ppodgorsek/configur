@@ -28,7 +28,7 @@ public class JpaConfiguration {
 	private JpaConfigurationPropertyDao jpaConfigurationPropertyDao;
 
 	@Bean
-	public JpaConfigurationService personService() {
+	public JpaConfigurationService jpaConfigurationService() {
 		return new JpaConfigurationService(jpaConfigurationCategoryDao,
 				jpaConfigurationPropertyDao);
 	}
