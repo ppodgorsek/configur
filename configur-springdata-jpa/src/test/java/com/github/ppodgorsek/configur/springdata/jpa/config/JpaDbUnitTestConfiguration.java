@@ -17,7 +17,7 @@ import com.github.springtestdbunit.bean.DatabaseDataSourceConnectionFactoryBean;
  * @author Paul Podgorsek
  */
 @Configuration
-public class TestDbUnitConfiguration {
+public class JpaDbUnitTestConfiguration {
 
 	@Resource
 	private DataSource dataSource;

@@ -4,6 +4,7 @@ ConfiguR is a persistent configuration service, providing modules to store and r
 
 Those sources can have many types:
 * Spring Data repositories,
+* flat files,
 * others can be easily implemented.
 
 [![Codeship Status for ppodgorsek/configur](https://app.codeship.com/projects/0c73e7d0-77cb-0137-13fa-726db4a00d18/status?branch=master)](https://app.codeship.com/projects/350108)
@@ -25,7 +26,13 @@ Configuration can be stored in a hierarchical manner in order to provide a bette
 * categories can be nested,
 * properties can simply be defined with no category.
 
-All calls should be made to the `ConfigurationFacade` and `ConfigurationService` to make sure mechanisms such as caching are not bypassed.
+All calls should be made to the `ConfigurationPropertySource` and `ConfigurationService` to make sure mechanisms such as caching are not bypassed.
+
+### Seamless environment integration
+
+If needed, a new property source can be added to the environment upon startup. This can be done by defining a `ConfigurationPropertySourceApplicationListener` bean in the application context. By default, this bean will add to the environment property sources for all `ConfigurationService` instances but you can also define it with the name of the bean which must be used instead.
+
+*Important: as some implementations rely on other beans such as the datasource for Spring Data DAOs, ConfiguR cannot be used to load startup properties such as database configuration. Such properties should remain in flat files or environment properties, ConfiguR can be used for dynamic properties fetched while the application is running.*
 
 ### Spring Data JPA
 
