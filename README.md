@@ -40,6 +40,12 @@ Remember to add the following package to the list scanned by Hibernate to find e
 
 In case you would like to change the table and column names or the database constraints, simply override the default values by creating a new class in your classpath which will supersede `com.github.ppodgorsek.configur.springdata.jpa.JpaConfigurationMetadata`.
 
+### Cache abstraction
+
+This abstraction allows to cache properties from any `ConfigurationService` instance. To avoid complex invalidation cases, categories are not cached.
+
+In case you would like to change the cache region name, simply override the default value by creating a new class in your classpath which will supersede `com.github.ppodgorsek.configur.cache.CacheConfigurationMetadata`.
+
 ## How to use this project
 
 All artefacts of this project are available on Maven’s central repository, which makes it easy to use in your projects.
@@ -49,6 +55,13 @@ If you are using Maven, simply declare the following dependencies:
 `    <dependency>`  
 `        <groupId>com.github.ppodgorsek</groupId>`  
 `        <artifactId>configur-core</artifactId>`  
+`        <version>${configur.version}</version>`  
+`    </dependency>`
+
+* configur-cache:  
+`    <dependency>`  
+`        <groupId>com.github.ppodgorsek</groupId>`  
+`        <artifactId>configur-cache</artifactId>`  
 `        <version>${configur.version}</version>`  
 `    </dependency>`
 
