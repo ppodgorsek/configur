@@ -48,6 +48,7 @@
 
 	<modules>
 		<module>configur-core</module>
+		<module>configur-cache</module>
 		<module>configur-springdata-jpa</module>
 	</modules>
 
@@ -64,6 +65,7 @@
 
 		<dbunit.version>2.6.0</dbunit.version>
 		<easymock.version>4.0.2</easymock.version>
+		<ehcache.version>2.10.6</ehcache.version>
 		<hibernate-core.version>5.4.2.Final</hibernate-core.version>
 		<hibernate-validator.version>6.0.16.Final</hibernate-validator.version>
 		<h2.version>1.4.199</h2.version>
@@ -108,6 +110,11 @@
 			</dependency>
 			<dependency>
 				<groupId>com.github.ppodgorsek</groupId>
+				<artifactId>configur-cache</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.ppodgorsek</groupId>
 				<artifactId>configur-springdata-jpa</artifactId>
 				<version>${project.version}</version>
 			</dependency>
@@ -118,7 +125,11 @@
 				<version>${hikaricp.version}</version>
 				<scope>test</scope>
 			</dependency>
-
+			<dependency>
+				<groupId>net.sf.ehcache</groupId>
+				<artifactId>ehcache</artifactId>
+				<version>${ehcache.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>org.apache.httpcomponents</groupId>
 				<artifactId>httpclient</artifactId>
