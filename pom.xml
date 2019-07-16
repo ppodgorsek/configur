@@ -72,7 +72,7 @@
 		<hikaricp.version>3.3.1</hikaricp.version>
 		<hsqldb.version>2.5.0</hsqldb.version>
 		<httpclient.version>4.5.9</httpclient.version>
-		<log4j.version>2.11.2</log4j.version>
+		<log4j.version>2.12.0</log4j.version>
 		<slf4j.version>1.7.26</slf4j.version>
 		<spring-test-dbunit.version>5.2.0</spring-test-dbunit.version>
 
