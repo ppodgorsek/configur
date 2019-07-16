@@ -61,7 +61,7 @@
 		<config.path.output>target</config.path.output>
 
 		<org.springframework.version>5.1.8.RELEASE</org.springframework.version>
-		<spring-data.version>Lovelace-SR8</spring-data.version>
+		<spring-data.version>Lovelace-SR9</spring-data.version>
 
 		<dbunit.version>2.6.0</dbunit.version>
 		<easymock.version>4.0.2</easymock.version>
